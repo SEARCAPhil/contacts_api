@@ -1,7 +1,7 @@
 language: php
 php:
-  - '7.1'
-  - nightly
+   - '7.1'
+   - '7.0'
 services:
    - mysql
 dist: trusty
