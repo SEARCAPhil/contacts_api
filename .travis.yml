@@ -7,7 +7,7 @@ services:
 dist: trusty
 sudo: required
 before_script:
-   - composer install
+   - composer update
    - mysql -u root -e "CREATE database homestead;"
    - mv .env.example .env
    - php artisan key:generate
