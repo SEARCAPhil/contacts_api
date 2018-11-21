@@ -1,11 +1,13 @@
-language: php
-php:
+language:php
+php
   - '7.1'
   - nightly
-services:
+services
    - mysql
-dist: trusty
-sudo: required
-before_script:
-   - composer install
+dist
+ - trusty
+sudo
+ - required
+before_script
+  - composer install
   - php artisan key:generate
