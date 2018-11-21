@@ -11,6 +11,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call([
+            CountrySeeder::class,
+            SaafClassesSeeder::class,
+            ContactGenderSeeder::class,
+            ContactPrefixSeeder::class,
+            SaafTypeSeeder::class,
+            SectorSeeder::class,
+            AffTypeSeeder::class,
+            ContactSeeder::class,
+            ContactBachelorSeeder::class,
+            ContactMasteralSeeder::class,
+            ContactDoctoralSeeder::class,
+            ContactEmploymentSeeder::class,
+            ContactEngagementSeeder::class,
+            ContactAssocAffSeeder::class,
+            ContactFellowAffSeeder::class,
+            ContactGradAffSeeder::class,
+            ContactTrainAffSeeder::class,
+            TraineesSeeder::class,
+            TrainingSeeder::class,
+        ]);
     }
 }

@@ -16,7 +16,7 @@ class CreateTrainees extends Migration
         Schema::create('trainees', function (Blueprint $table) {
             $table->increments('refNo');
             $table->integer('contact_id');
-            $table->string('fullName', 255);
+            $table->string('fullName', 255)->nullable();
         });
     }
 
