@@ -5,48 +5,62 @@ SEARCA's contacts database
 
 ## Installation
 ___
-* Clone repository to your machine
+1.) Clone repository to your machine
 
-* Install dependencies
-  > composer install
+2.) Install dependencies
+  > composer update
 
-* Copy `.env.example` to `.env` and change it with your database credentials
+3.) Copy `.env.example` to `.env` and change it with your database credentials
 
-* Generate laravel key
+4.) Generate laravel key
   > php artisan key:generate
 
-* Create database tables using Laravel's migration command
+5.) Create database tables using Laravel's migration command
   > php artisan migrate:fresh
 
-  or `create database and populate sample data` using `--seed` command
+6.) or `create database and populate sample data` using `--seed` command
   > php artisan migrate:fresh --seed
 
   
   ***Note: Migration commands will erase all the data in your database.Please make sure that you will only run this on your `development machine`***
 
 
-## Docker
+## Docker (Recommended)
 ___
-This will ensure that all developers are using the same environment during the development phase. This is not required, but comes in handy if your machine contains different php version.
+This will ensure that all developers are using the same environment during the development phase. This is not required, but comes in handy if your machine contains different PHP version and MariaDB or no installation at all.
 
-* After you cloned the repository, make sure to change your current working directory.
+### Requirements
+> Note: You must have an active account in Docker to download the application
+
+1.) [Docker](https://www.docker.com/get-started)   
+2.) [Docker Compose](https://docs.docker.com/compose/install/)
+
+
+### Links
+* **Web API** : http://localhost:81/   
+* **phpMyAdmin** :  http://localhost:82/
+
+### Installation
+1.) After you cloned the repository, make sure to change your current working directory.
   > cd contacts_api
 
-* Build the image
+2.) Build the image
 
-  > docker build -t phpapp .
+  > docker-compose up -d
 
-* Create a container running php/apache in port `81`.
-  > docker run --rm -v **[/to/your/absolute/path]**:/var/www/html -p 81:80 phpapp
-     
-  Example command in MacOS :   
-  > `docker run --rm -v /Applications/XAMPP/htdocs/contacts_api:/var/www/html -p 81:80 phpapp `  
-  
-  **[/to/your/absolute/path]** - replace it with the directory of the Contacts API   
-  **/var/www/html** - Default apache file storage(must not change this one)
+3.) Get the the list of all running containers and choose the contacts_api_web
+  > docker ps -a
 
-* Open your browser and enter `http://localhost:81/public/`
-* If you see the default Laravel home page, it means you have successfully spin a docker container running a `php/apache` server.
+4.) Enter the app's console
+  > docker exec -ti **container_id_here** bash
+
+5.) Proceed to the typical Installation instructions `except 1.)`
+   
+
+
+**IMPORTANT**
+___
+> You might need  to change the [volume] part in `build_files/Dockerfile` depending on your Operating System.  
 
    
 > NOTES: Docker only allows few folders that could be mount into the volume or else you will receive a permission denied error and you might need to copy the whole directory for this to properly work.    
