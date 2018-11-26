@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
             ContactGradAffSeeder::class,
             ContactTrainAffSeeder::class,
             TraineesSeeder::class,
-            TrainingSeeder::class,
+            ContactTrainingSeeder::class,
+            ContactCommunicationSeeder::class,
+            ContactEducationSeeder::class,
+            ContactResearchSeeder::class,
         ]);
     }
 }

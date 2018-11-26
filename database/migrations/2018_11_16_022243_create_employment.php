@@ -21,6 +21,12 @@ class CreateEmployment extends Migration
             $table->string('position', 255);
             $table->year('employedFrom');
             $table->year('employedTo');
+            $table->string('country', 255)->nullable();
+            $table->integer('countryCode')->nullable();
+            $table->integer('zip')->nullable();
+            $table->string('fax', 255)->nullable();
+            $table->string('areaCode', 255)->nullable();
+            $table->string('sector', 255)->nullable();
         });
     }
 
