@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Trainees extends Model
 {
     protected $table = 'trainees';
-    protected $fillable = ['contact_id'];
+    protected $fillable = ['contact_id', 'training_id'];
     public $timestamps = false;
 }

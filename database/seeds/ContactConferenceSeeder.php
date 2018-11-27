@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SaafTypeSeeder extends Seeder
+class ContactConferenceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class SaafTypeSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Saaf\Type::class, 1)->create();
+        factory(App\Contact\Conference::class, 1)->create();
     }
 }

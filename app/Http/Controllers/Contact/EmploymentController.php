@@ -29,7 +29,7 @@ class EmploymentController extends Controller
             'zip' => $zip, 
             'fax' => $fax, 
             'areaCode' => $areaCode,
-            'sector' => $sectoer, 
+            'sector' => $sector, 
         ]);
     }
 
@@ -47,8 +47,8 @@ class EmploymentController extends Controller
         return $inserted ? DB::getPdo()->lastInsertId() : 0;
     }
 
-    public function deleteService (Request $request) {
-        return self::delete($request->id);
+    public function deleteService ($id) {
+        return self::delete($id);
     } 
 
     public function updateService (Request $request) {

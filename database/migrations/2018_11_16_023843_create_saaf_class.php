@@ -15,6 +15,7 @@ class CreateSaafClass extends Migration
     {
         Schema::create('saafclass', function (Blueprint $table) {
             $table->increments('saafclass_id');
+            $table->integer('saafclass_parent_id')->nullable();
             $table->string('saafclass', 100);
         });
     }

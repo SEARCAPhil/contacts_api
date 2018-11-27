@@ -20,6 +20,10 @@ class CreateContactResearchSchema extends Migration
             $table->year('dateStarted');
             $table->year('dateEnded');
             $table->string('title', 255);
+            $table->string('fieldStudy', 255)->nullable();
+            $table->string('funding', 255)->nullable();
+            $table->string('remarks', 255)->nullable();
+            $table->string('hostUniversity', 255)->nullable();
         });
     }
 

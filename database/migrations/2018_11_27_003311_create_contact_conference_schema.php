@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDoctor extends Migration
+class CreateContactConferenceSchema extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateDoctor extends Migration
      */
     public function up()
     {
-        Schema::create('doctor', function (Blueprint $table) {
-            $table->increments('phd_id');
+        Schema::create('conference', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('contact_id');
-            $table->string('phdInstitute', 255);
-            $table->string('phdCountry', 255);
-            $table->string('phdField', 255);
-            $table->year('phdGrad');
-            $table->string('phdScholarship', 255);
+            $table->date('dateStarted')->nullable();
+            $table->date('dateEnded')->nullable();
+            $table->string('venue', 255);
+            $table->string('title', 255);
         });
     }
 
@@ -31,6 +30,6 @@ class CreateDoctor extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctor');
+        Schema::dropIfExists('conference');
     }
 }

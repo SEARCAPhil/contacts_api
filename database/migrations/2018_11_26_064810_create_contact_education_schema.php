@@ -21,6 +21,7 @@ class CreateContactEducationSchema extends Migration
             $table->string('field', 255)->nullable();
             $table->year('grad');
             $table->string('scholarship', 255)->nullable();
+            $table->string('type', 255)->nullable();
         });
     }
 

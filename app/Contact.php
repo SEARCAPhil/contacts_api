@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Contact extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'contact';
     protected $fillable = [
         'affiliateCode',
@@ -24,33 +24,16 @@ class Contact extends Model
         'hobbies',
         'nationality',
         'specialization',
-        'officeMobile',
-        'homeMobile',
-        'officePhone',
-        'homePhone',
-        'officeEmail',
-        'homeEmail',
         'homeAddress',
         'homeCountry',
-        'officeAddress',
-        'officeCountry',
         'homeZipCode',
-        'officeZipCode',
-        'officeFax',
-        'homeFax',
         'officeCountryCode',
         'homeCountryCode',
-        'officeAreaCode',
         'homeAreaCode',
-        'status',
         'civilStat',
         'position',
         'dept',
-        'company',
         'others',
-        'sector',
-        'contactMeans',
-        'mailMeans',
         'rank',
         'suffix'
     ];

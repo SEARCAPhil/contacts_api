@@ -7,7 +7,8 @@ $factory->define(App\Contact\Engagement::class, function (Faker $faker) {
         'contact_id' => 1, 
         'engageFrom' => date('Y'), 
         'engageTo' => (date('Y') + 3), 
-        'researchTitle' => $faker->text(50), 
+        'researchId' => 1, 
         'engagement' => 'Professorial Chair',
+        'type' => 'council',
     ];
 });

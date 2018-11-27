@@ -18,8 +18,10 @@ class CreateEngagement extends Migration
             $table->integer('contact_id');
             $table->year('engageFrom');
             $table->year('engageTo');
-            $table->string('researchTitle', 255);
-            $table->string('engagement', 255);
+            $table->string('researchId', 255)->nullable();
+            $table->string('engagement', 255)->nullable();
+            $table->string('type', 255)->nullable();
+            $table->string('nature', 255)->nullable();
 
         });
     }

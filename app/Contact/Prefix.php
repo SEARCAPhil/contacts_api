@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Prefix extends Model
 {
     protected $table = 'prefix';
-    protected $fillable = 'prefix';
+    protected $fillable = ['prefix'];
     public $timestamps = false;
 }
