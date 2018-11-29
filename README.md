@@ -4,7 +4,6 @@ SEARCA's contacts database
 ![CI](https://travis-ci.org/SEARCAPhil/contacts_api.svg?branch=develop)
 
 ## Installation
-___
 1.) Clone repository to your machine
 
 2.) Install dependencies
@@ -26,7 +25,6 @@ ___
 
 
 ## Docker (Recommended)
-___
 This will ensure that all developers are using the same environment during the development phase. This is not required, but comes in handy if your machine contains different PHP version and MariaDB or no installation at all.
 
 ### Requirements
@@ -59,9 +57,21 @@ This will ensure that all developers are using the same environment during the d
 
 
 **IMPORTANT**
-___
 > You might need  to change the [volume] part in `build_files/Dockerfile` depending on your Operating System.  
 
    
 > NOTES: Docker only allows few folders that could be mount into the volume or else you will receive a permission denied error and you might need to copy the whole directory for this to properly work.    
 If you are using `XAMPP` in MacOS, please go to `Docker > preferences > File Sharing` and add new entry `/Applications/XAMPP/xampp/htdocs`.  
+   
+
+
+
+### DOCUMENTATION  
+For API docs, please refer to the link below. This was automatically created by Postman
+https://documenter.getpostman.com/view/4471408/RzfcLAyQ
+
+### TOOLS
+* [Postman](https://www.getpostman.com/)
+* [Docker](https://www.docker.com/)
+* [VSCode](https://code.visualstudio.com/)
+* [XAMPP](https://www.apachefriends.org/index.html)

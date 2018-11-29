@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * Contact
  */
 Route::post('contact', 'Contact\PersonalInfo@createService');
-Route::delete('contact', 'Contact\PersonalInfo@deleteService');
+Route::delete('contact/{id}', 'Contact\PersonalInfo@deleteService');
 Route::put('contact', 'Contact\PersonalInfo@updateService');
 Route::get('contact', 'Contact\PersonalInfo@retrieveService');
 
