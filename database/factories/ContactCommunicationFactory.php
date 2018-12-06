@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Contact\Communication::class, function (Faker $faker) {
     return [
-        'contact_id' => 2,
+        'contact_id' => 1,
         'type' => $faker->randomElements(['mobile', 'phone', 'fax'])[0],
         'value' => $faker->phoneNumber
     ];

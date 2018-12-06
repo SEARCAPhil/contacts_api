@@ -16,6 +16,7 @@ class CreateContactTrainingSchema extends Migration
         Schema::create('training', function (Blueprint $table) {
             $table->increments('training_id');
             $table->integer('contact_id');
+            $table->string('title', 255);
             $table->integer('saaftype_id')->nullable();;
             $table->string('notes', 255)->nullable();
             $table->year('dateStarted');

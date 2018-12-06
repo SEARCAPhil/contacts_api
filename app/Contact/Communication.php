@@ -13,4 +13,5 @@ class Communication extends Model
        'contact_id'
    ];
    public $timestamps = false;
+
 }

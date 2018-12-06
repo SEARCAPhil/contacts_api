@@ -9,6 +9,7 @@ class Training extends Model
     protected $table = 'training';
     protected $fillable = [
         'trainingId',
+        'title',
         'organizingAgency',
         'name',
         'birthDate',

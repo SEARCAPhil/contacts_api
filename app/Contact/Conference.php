@@ -13,4 +13,8 @@ class Conference extends Model
         'date'
     ];
     public $timestamps = false;
+
+    public function lectures () {
+        return $this->hasMany(Conference\Lecture::class, 'conference_id');
+    }
 }

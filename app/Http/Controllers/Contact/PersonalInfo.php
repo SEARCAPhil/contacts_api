@@ -38,12 +38,18 @@ class PersonalInfo extends Controller
     }
 
     public function retrieve () {
-        return Contact::paginate();
+        $res = Contact::with(['communications'])->paginate();
+        return $res;
     }
 
     public function delete ($id) {
        return Contact::where('contact_id', $id)->delete();
     }
+
+    public function view ($id) {
+        $res = Contact::find($id)->with(['communications', 'conferences', 'educationalBackgrounds', 'research', 'trainings', 'employments'])->paginate();
+        return $res;
+    }   
 
     /** Services */
 
@@ -62,5 +68,9 @@ class PersonalInfo extends Controller
 
     public function retrieveService (Request $request) {
         return self::retrieve();
+    }
+
+    public function infoService (Request $request) {
+        return self::view($request->id);
     }
 }
