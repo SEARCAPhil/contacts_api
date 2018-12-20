@@ -7,7 +7,7 @@ services:
     ports:
        - "81:80"
     volumes:
-       - "/Applications/XAMPP/xamppfiles/htdocs/contacts_api:/var/www/html"
+       - "/Applications/XAMPP/xamppfiles/htdocs/contacts_api:/var/www/html/contacts_api"
     networks:
        - app-tier
   mariadb:

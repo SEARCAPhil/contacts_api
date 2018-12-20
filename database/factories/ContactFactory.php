@@ -11,7 +11,7 @@ $factory->define(App\Contact::class, function (Faker $faker) {
         'middleinit' => $faker->firstName(),
         'nickname' => $faker->firstName(),
         'gender' => $faker->randomElements(['male', 'female'])[0],
-        'birthdate' => date('Y'),
+        'birthdate' => date('Y-m-d'),
         'spouse' => $faker->name,
         'children' => 1,
         'hobbies' => 'table tennis',

@@ -15,14 +15,14 @@ class CreateContact extends Migration
     {
         Schema::create('contact', function (Blueprint $table) {
             $table->increments('contact_id');
-            $table->string('affiliateCode', 255);
-            $table->string('prefix', 255);
+            $table->string('affiliateCode', 255)->nullable();
+            $table->string('prefix', 255)->nullable();
             $table->string('lastname', 255);
             $table->string('firstname', 255);
-            $table->string('middleinit', 255);
-            $table->string('nickname', 255);
+            $table->string('middleinit', 255)->nullable();
+            $table->string('nickname', 255)->nullable();
             $table->string('gender', 255);
-            $table->year('birthdate');
+            $table->date('birthdate');
             $table->string('spouse', 255)->nullable();
             $table->string('children', 255)->nullable();
             $table->string('hobbies', 255)->nullable();
