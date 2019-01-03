@@ -41,6 +41,10 @@ class EmploymentController extends Controller
        return Employment::where('employ_id', $id)->delete();
     }
 
+    public function view ($id) {
+        return Employment::where('employ_id', $id)->get();
+    }
+
     /** Services */
     public function createService (Request $request) {
         $inserted = self::create ($request->id, $request->companyName, $request->companyAddress, $request->position, $request->employedFrom, $request->employedTo, $request->country, $request->countryCode, $request->zip, $request->fax, $request->areaCode, $request->sector);
@@ -57,6 +61,10 @@ class EmploymentController extends Controller
 
     public function retrieveService (Request $request, $contactId) {
         return self::retrieve($contactId);
+    }
+
+    public function viewService (Request $request, $employId) {
+        return self::view($employId);
     }
 
 

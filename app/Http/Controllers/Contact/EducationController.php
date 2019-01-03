@@ -29,6 +29,10 @@ class EducationController extends Controller
         return Education::where('contact_id', $id)->paginate(20);
     }
 
+    public function view ($id) {
+        return Education::where('educ_id', $id)->get();
+    }
+
     public function delete ($id) {
        return Education::where('educ_id', $id)->delete();
     }
@@ -49,5 +53,9 @@ class EducationController extends Controller
 
     public function retrieveService (Request $request, $contactId) {
         return self::retrieve($contactId);
+    }
+
+    public function viewService (Request $request, $contactId) {
+        return self::view($contactId);
     }
 }

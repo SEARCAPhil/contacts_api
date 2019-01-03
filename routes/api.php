@@ -33,6 +33,7 @@ Route::post('contact/employment', 'Contact\EmploymentController@createService');
 Route::delete('contact/employment/{id}', 'Contact\EmploymentController@deleteService');
 Route::put('contact/employment', 'Contact\EmploymentController@updateService');
 Route::get('contact/employment/{contactId}', 'Contact\EmploymentController@retrieveService');
+Route::get('contact/employment/{employId}/details', 'Contact\EmploymentController@viewService');
 
 /**
  * Contact\Communication
@@ -68,6 +69,7 @@ Route::post('contact/education', 'Contact\EducationController@createService');
 Route::put('contact/education', 'Contact\EducationController@updateService');
 Route::delete('contact/education/{id}', 'Contact\EducationController@deleteService');
 Route::get('contact/education/{id}', 'Contact\EducationController@retrieveService');
+Route::get('contact/education/{id}/details', 'Contact\EducationController@viewService');
 
 
 /**
