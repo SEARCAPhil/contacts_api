@@ -21,7 +21,11 @@ class ClassController extends Controller
     }
 
     public function retrieve () {
-        return Classes::paginate(100);
+        return Classes::where('saafclass_parent_id', 0)->paginate(100);
+    }
+
+    public function viewSubs ($id) {
+        return Classes::where('saafclass_parent_id', $id)->paginate(100);
     }
 
     public function delete ($id) {
@@ -44,5 +48,8 @@ class ClassController extends Controller
 
     public function retrieveService (Request $request) {
         return self::retrieve();
+    }
+    public function viewSubsService (Request $request) {
+        return self::viewSubs($request->id);
     }
 }

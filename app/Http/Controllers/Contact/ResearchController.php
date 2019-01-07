@@ -28,11 +28,15 @@ class ResearchController extends Controller
     }
 
     public function retrieve ($id) {
-        return Research::where('contact_id', $id)->paginate(100);
+        return Research::leftJoin('saafclass', 'saafclass_id', '=', 'research.saaftype_id')->where('contact_id', $id)->paginate(100);
     }
 
     public function delete ($id) {
        return Research::where('research_id', $id)->delete();
+    }
+
+    public function view ($id) {
+        return Research::leftJoin('saafclass', 'saafclass_id', '=', 'research.saaftype_id')->where('research_id', $id)->get();
     }
 
     /** Services */
@@ -51,5 +55,9 @@ class ResearchController extends Controller
 
     public function retrieveService (Request $request) {
         return self::retrieve($request->id);
+    }
+
+    public function viewService (Request $request) {
+        return self::view($request->id);
     }
 }

@@ -51,6 +51,8 @@ Route::post('contact/conference', 'Contact\ConferenceController@createService');
 Route::put('contact/conference', 'Contact\ConferenceController@updateService');
 Route::delete('contact/conference/{id}', 'Contact\ConferenceController@deleteService');
 Route::get('contact/conference/{id}', 'Contact\ConferenceController@retrieveService');
+Route::get('contact/conference/{id}/details', 'Contact\ConferenceController@viewService');
+
 
 /**
  * Contact\Conference\Lecture
@@ -59,6 +61,7 @@ Route::post('contact/conference/lecture', 'Contact\Conference\LectureController@
 Route::put('contact/conference/lecture', 'Contact\Conference\LectureController@updateService');
 Route::delete('contact/conference/lecture/{id}', 'Contact\Conference\LectureController@deleteService');
 Route::get('contact/conference/lecture/{id}', 'Contact\Conference\LectureController@retrieveService');
+Route::get('contact/conference/lecture/{id}/details', 'Contact\Conference\LectureController@viewService');
 
 
 
@@ -106,6 +109,7 @@ Route::post('contact/research', 'Contact\ResearchController@createService');
 Route::put('contact/research', 'Contact\ResearchController@updateService');
 Route::delete('contact/research/{id}', 'Contact\ResearchController@deleteService');
 Route::get('contact/research/{id}', 'Contact\ResearchController@retrieveService');
+Route::get('contact/research/{id}/details', 'Contact\ResearchController@viewService');
 
 
 /**
@@ -115,6 +119,7 @@ Route::post('contact/training', 'Contact\TrainingController@createService');
 Route::put('contact/training', 'Contact\TrainingController@updateService');
 Route::delete('contact/training/{id}', 'Contact\TrainingController@deleteService');
 Route::get('contact/training/{id}', 'Contact\TrainingController@retrieveService');
+Route::get('contact/training/{id}/details', 'Contact\TrainingController@viewService');
 
 
 /**
@@ -124,6 +129,7 @@ Route::post('saaf/class', 'Saaf\ClassController@createService');
 Route::put('saaf/class', 'Saaf\ClassController@updateService');
 Route::delete('saaf/class/{id}', 'Saaf\ClassController@deleteService');
 Route::get('saaf/class', 'Saaf\ClassController@retrieveService');
+Route::GET('saaf/class/{id}', 'Saaf\ClassController@viewSubsService');
 
 
 

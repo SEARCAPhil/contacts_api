@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Contact;
 
 use App\Contact\Conference;
+use App\Contact\Conference\Lecture;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,6 @@ class ConferenceController extends Controller
 
     public function update ($id, $title, $venue, $dateStarted, $dateEnded) {
         return Conference::where('id', $id)->update([
-            'contact_id' => $id, 
             'title' => $title, 
             'venue' => $venue, 
             'dateStarted' => $dateStarted, 
@@ -28,7 +28,17 @@ class ConferenceController extends Controller
     }
 
     public function delete ($id) {
-       return Conference::where('id', $id)->delete();
+       $isDeleted = Conference::where('id', $id)->delete();
+
+       # delete child lectures
+       if($isDeleted) {
+        Lecture::where('conference_id', $id)->delete();
+       }
+       return $isDeleted;
+    }
+
+    public function view($id) {
+        return Conference::where('id', $id)->get();
     }
 
     /** Services */
@@ -47,6 +57,10 @@ class ConferenceController extends Controller
 
     public function retrieveService (Request $request, $contactId) {
         return self::retrieve($contactId);
+    }
+
+    public function viewService (Request $request, $id) {
+        return self::view($id);
     }
 
 }

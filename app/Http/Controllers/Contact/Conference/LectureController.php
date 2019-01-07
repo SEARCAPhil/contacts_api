@@ -31,6 +31,10 @@ class LectureController extends Controller
        return Lecture::where('id', $id)->delete();
     }
 
+    public function view ($id) {
+        return Lecture::where('id', $id)->get();
+     }
+
     /** Services */
     public function createService (Request $request) {
         $inserted = self::create ($request->id, $request->paperTitle, $request->lectureVenue, $request->lectureTitle, $request->dateStarted, $request->dateEnded);
@@ -47,5 +51,9 @@ class LectureController extends Controller
 
     public function retrieveService (Request $request, $contactId) {
         return self::retrieve($contactId);
+    }
+
+    public function viewService (Request $request, $id) {
+        return self::view($id);
     }
 }
