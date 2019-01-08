@@ -39,6 +39,7 @@ class CreateContact extends Migration
             $table->string('others', 255)->nullable();
             $table->integer('rank')->nullable();
             $table->string('suffix', 50)->nullable();
+            $table->string('photo',255)->nullable();
             $table->softDeletes();
         });
     }

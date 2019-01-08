@@ -36,7 +36,8 @@ class Contact extends Model
         'dept',
         'others',
         'rank',
-        'suffix'
+        'suffix',
+        'photo',
     ];
     public $timestamps = false;
     protected $dates = ['deleted_at'];

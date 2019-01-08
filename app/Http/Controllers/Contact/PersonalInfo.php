@@ -52,7 +52,16 @@ class PersonalInfo extends Controller
     public function view ($id) {
         $res = Contact::findOrFail($id)->load(['communications', 'conferences', 'educationalBackgrounds', 'research', 'trainings', 'employments']);
         return $res;
-    }   
+    }
+    
+    public function search ($param) {
+        $res = Contact::where('contact.firstname', 'like', '%'.$param.'%')
+        ->orWhere('contact.lastname', 'like', '%'.$param.'%')
+        ->orWhere('contact.firstname', 'like', '%'.$param.'%')
+        ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
+        ->with(['communications'])->paginate(50);
+        return $res;
+    }  
 
     /** Services */
 
@@ -75,5 +84,9 @@ class PersonalInfo extends Controller
 
     public function infoService (Request $request) {
         return self::view($request->id);
+    }
+
+    public function searchService (Request $request) {
+        return self::search($request->param);
     }
 }

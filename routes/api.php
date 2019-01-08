@@ -25,6 +25,7 @@ Route::delete('contact/{id}', 'Contact\PersonalInfo@deleteService');
 Route::put('contact', 'Contact\PersonalInfo@updateService');
 Route::get('contact', 'Contact\PersonalInfo@retrieveService');
 Route::get('contact/{id}/info', 'Contact\PersonalInfo@infoService');
+Route::get('contact/search/{param}', 'Contact\PersonalInfo@searchService');
 
 /**
  * Contact\Employment
