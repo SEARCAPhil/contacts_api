@@ -54,7 +54,7 @@ class PersonalInfo extends Controller
     }
 
     public function view ($id) {
-        $res = Contact::findOrFail($id)->load(['communications', 'conferences', 'educationalBackgrounds', 'research', 'trainings', 'employments']);
+        $res = Contact::findOrFail($id)->load(['communications', 'conferences', 'educationalBackgrounds', 'research', 'trainings', 'employments', 'engagements']);
         return $res;
     }
     

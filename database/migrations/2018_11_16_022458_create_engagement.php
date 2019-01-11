@@ -16,12 +16,11 @@ class CreateEngagement extends Migration
         Schema::create('engagement', function (Blueprint $table) {
             $table->increments('engage_id');
             $table->integer('contact_id');
-            $table->year('engageFrom');
-            $table->year('engageTo');
+            $table->date('engageFrom');
+            $table->date('engageTo')->nullable();
             $table->string('researchId', 255)->nullable();
             $table->string('engagement', 255)->nullable();
-            $table->string('type', 255)->nullable();
-            $table->string('nature', 255)->nullable();
+            $table->integer('type')->nullable();
 
         });
     }

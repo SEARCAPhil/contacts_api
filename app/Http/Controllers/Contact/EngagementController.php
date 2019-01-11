@@ -10,18 +10,17 @@ use Illuminate\Support\Facades\DB;
 class EngagementController extends Controller
 {
     
-    public function create ($contact_id, $engageFrom, $engageTo, $researchId, $engagement, $type, $nature) {
-        return DB::insert('INSERT INTO engagement (contact_id, engageFrom, engageTo, researchId, engagement, type, nature) values(?, ?, ?, ?, ?, ?, ?)', [$contact_id, $engageFrom, $engageTo, $researchId, $engagement, $type, $nature]);
+    public function create ($contact_id, $engageFrom, $engageTo, $researchId, $engagement, $type) {
+        return DB::insert('INSERT INTO engagement (contact_id, engageFrom, engageTo, researchId, engagement, type) values(?, ?, ?, ?, ?, ?)', [$contact_id, $engageFrom, $engageTo, $researchId, $engagement, $type]);
     }
 
-    public function update ($id, $engageFrom, $engageTo, $researchId, $engagement, $type, $nature) {
+    public function update ($id, $engageFrom, $engageTo, $researchId, $engagement, $type) {
         return Engagement::where('engage_id', $id)->update([
             'engageFrom' => $engageFrom, 
             'engageTo' => $engageTo, 
             'researchId' => $researchId, 
             'engagement' => $engagement, 
-            'type' => $type, 
-            'nature' => $nature
+            'type' => $type
         ]);
     }
 

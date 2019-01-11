@@ -133,7 +133,10 @@ Route::delete('saaf/class/{id}', 'Saaf\ClassController@deleteService');
 Route::get('saaf/class', 'Saaf\ClassController@retrieveService');
 Route::GET('saaf/class/{id}', 'Saaf\ClassController@viewSubsService');
 
-
+/**
+ * Afftype
+ */
+Route::get('afftype', 'AffTypeController@retrieve');
 
 /**
  * Sector

@@ -65,4 +65,8 @@ class Contact extends Model
     public function employments () {
         return $this->hasMany(Contact\Employment::class, 'contact_id');
     }
+
+    public function engagements () {
+        return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
+    }
 }
