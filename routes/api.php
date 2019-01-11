@@ -26,6 +26,7 @@ Route::put('contact', 'Contact\PersonalInfo@updateService');
 Route::get('contact', 'Contact\PersonalInfo@retrieveService');
 Route::get('contact/{id}/info', 'Contact\PersonalInfo@infoService');
 Route::get('contact/search/{param}', 'Contact\PersonalInfo@searchService');
+Route::post('contact/photo', 'Contact\PersonalInfo@photoService');
 
 /**
  * Contact\Employment

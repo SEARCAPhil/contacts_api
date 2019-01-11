@@ -40,6 +40,10 @@ class PersonalInfo extends Controller
         'homeZipCode' => $homeZipCode]);
     }
 
+    public function update_photo ($id, $filename) {
+        return Contact::where('contact_id', $id)->update(['photo' => $filename]);
+    }
+
     public function retrieve () {
         $res = Contact::with(['communications'])->paginate(50);
         return $res;
@@ -62,6 +66,23 @@ class PersonalInfo extends Controller
         ->with(['communications'])->paginate(50);
         return $res;
     }  
+
+    public function uploadProfilePhoto ($req) {
+        $file = $req->file('file');
+        $id = $req->id;
+        $valid_extensions = ['jpeg', 'png'];
+        # filter
+        if(!$id) exit();
+        if(!$file->isValid()) exit;
+        if(!in_array($file->extension(), $valid_extensions)) exit;
+        # upload
+        $filename = "{$id}.{$file->extension()}";
+        $moved = $file->move(public_path('uploads'), $filename);
+        if($moved) {
+            # update name
+            return $this->update_photo ($id, $filename);
+        }
+    }
 
     /** Services */
 
@@ -88,5 +109,8 @@ class PersonalInfo extends Controller
 
     public function searchService (Request $request) {
         return self::search($request->param);
+    }
+    public function photoService (Request $request) {
+        return self::uploadProfilePhoto($request);
     }
 }
