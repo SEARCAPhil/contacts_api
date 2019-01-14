@@ -20,12 +20,16 @@ class EngagementController extends Controller
             'engageTo' => $engageTo, 
             'researchId' => $researchId, 
             'engagement' => $engagement, 
-            'type' => $type
+            'type' => ($type === 'null') ? null : $type
         ]);
     }
 
     public function retrieve ($id) {
         return Engagement::where('contact_id', $id)->paginate(20);
+    }
+
+    public function view ($id) {
+        return Engagement::where('engage_id', $id)->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'afftype.type_id', '=', 'engagement.type')->get();
     }
 
     public function delete ($id) {
@@ -34,7 +38,7 @@ class EngagementController extends Controller
 
     /** Services */
     public function createService (Request $request) {
-        $inserted = self::create ($request->id, $request->engageFrom, $request->engageTo, $request->researchId, $request->engagement, $request->type, $request->nature);
+        $inserted = self::create ($request->id, $request->engageFrom, $request->engageTo, $request->researchId, $request->engagement, $request->type);
         return $inserted ? DB::getPdo()->lastInsertId() : 0;
     }
 
@@ -43,10 +47,14 @@ class EngagementController extends Controller
     } 
 
     public function updateService (Request $request) {
-        return self::update($request->id, $request->engageFrom, $request->engageTo, $request->researchId, $request->engagement, $request->type, $request->nature);
+        return self::update($request->id, $request->engageFrom, $request->engageTo, $request->researchId, $request->engagement, $request->type);
     }
 
     public function retrieveService (Request $request, $contactId) {
         return self::retrieve($contactId);
+    }
+
+    public function viewService (Request $request) {
+        return self::view($request->id);
     }
 }

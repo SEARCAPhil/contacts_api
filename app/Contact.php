@@ -66,6 +66,10 @@ class Contact extends Model
         return $this->hasMany(Contact\Employment::class, 'contact_id');
     }
 
+    public function fellowships () {
+        return $this->hasMAny(Contact\FellowAff::class, 'contact_id')->leftJoin('saafclass', 'fellowaff.saaftype_id', '=', 'saafclass.saafclass_id');
+    }
+
     public function engagements () {
         return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
     }

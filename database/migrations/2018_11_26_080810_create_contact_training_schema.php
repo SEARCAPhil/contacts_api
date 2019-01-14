@@ -17,10 +17,10 @@ class CreateContactTrainingSchema extends Migration
             $table->increments('training_id');
             $table->integer('contact_id');
             $table->string('title', 255);
-            $table->integer('saaftype_id')->nullable();;
+            $table->integer('saaftype_id')->nullable();
             $table->string('notes', 255)->nullable();
             $table->year('dateStarted');
-            $table->year('dateEnded');
+            $table->year('dateEnded')->nullable();
             $table->string('scholarship', 255)->nullable();
             $table->string('venue', 255)->nullable();
             $table->string('sponsor', 255)->nullable();
@@ -29,6 +29,7 @@ class CreateContactTrainingSchema extends Migration
             $table->string('trainingType', 255)->nullable();
             $table->string('organizingAgency', 255)->nullable();
             $table->string('hostUniversity', 255)->nullable();
+            $table->integer('isSearcaTraining')->default(0)->nullable();
         });
     }
 

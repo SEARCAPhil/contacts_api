@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 class ResearchController extends Controller
 {
     
-    public function create ($contact_id, $saaftype_id, $dateStarted, $dateEnded, $title, $fieldStudy, $funding, $remarks, $hostUniversity) {
-        return DB::insert('INSERT INTO research (contact_id, saaftype_id, dateStarted, dateEnded, title, fieldStudy, funding, remarks, hostUniversity) values(?, ?, ?, ?, ?, ?, ?, ?, ?)', [$contact_id, $saaftype_id, $dateStarted, $dateEnded, $title, $fieldStudy, $funding, $remarks, $hostUniversity]);
+    public function create ($contact_id, $saaftype_id, $dateStarted, $dateEnded, $title, $fieldStudy, $funding, $remarks, $hostUniversity, $isSearcaTraining) {
+        return DB::insert('INSERT INTO research (contact_id, saaftype_id, dateStarted, dateEnded, title, fieldStudy, funding, remarks, hostUniversity, isSearcaTraining) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [$contact_id, $saaftype_id, $dateStarted, $dateEnded, $title, $fieldStudy, $funding, $remarks, $hostUniversity,  $isSearcaTraining]);
     }
 
-    public function update ($id, $saaftype_id, $dateStarted, $dateEnded, $title, $fieldStudy, $funding, $remarks, $hostUniversity) {
+    public function update ($id, $saaftype_id, $dateStarted, $dateEnded, $title, $fieldStudy, $funding, $remarks, $hostUniversity,  $isSearcaTraining) {
         return Research::where('research_id', $id)->update([ 
             'saaftype_id' => $saaftype_id, 
             'dateStarted' => $dateStarted, 
@@ -24,6 +24,7 @@ class ResearchController extends Controller
             'funding' => $funding, 
             'remarks' => $remarks, 
             'hostUniversity' => $hostUniversity, 
+            'isSearcaTraining' =>  $isSearcaTraining,
         ]);
     }
 
@@ -41,7 +42,7 @@ class ResearchController extends Controller
 
     /** Services */
     public function createService (Request $request) { 
-        $inserted = self::create ($request->id, $request->saafTypeId, $request->dateStarted, $request->dateEnded, $request->title, $request->fieldStudy, $request->funding, $request->remarks, $request->hostUniversity);
+        $inserted = self::create ($request->id, $request->saafTypeId, $request->dateStarted, $request->dateEnded, $request->title, $request->fieldStudy, $request->funding, $request->remarks, $request->hostUniversity, $request->isSearcaTraining);
         return $inserted ? DB::getPdo()->lastInsertId() : 0;
     }
 
@@ -50,7 +51,7 @@ class ResearchController extends Controller
     } 
 
     public function updateService (Request $request) {
-        return self::update($request->id, $request->saafTypeId, $request->dateStarted, $request->dateEnded, $request->title, $request->fieldStudy, $request->funding, $request->remarks, $request->hostUniversity);
+        return self::update($request->id, $request->saafTypeId, $request->dateStarted, $request->dateEnded, $request->title, $request->fieldStudy, $request->funding, $request->remarks, $request->hostUniversity, $request->isSearcaTraining);
     }
 
     public function retrieveService (Request $request) {

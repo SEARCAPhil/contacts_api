@@ -84,6 +84,7 @@ Route::post('contact/engagement', 'Contact\EngagementController@createService');
 Route::put('contact/engagement', 'Contact\EngagementController@updateService');
 Route::delete('contact/engagement/{id}', 'Contact\EngagementController@deleteService');
 Route::get('contact/engagement/{id}', 'Contact\EngagementController@retrieveService');
+Route::get('contact/engagement/{id}/details', 'Contact\EngagementController@viewService');
 
 
 /**
@@ -93,6 +94,7 @@ Route::post('contact/fellow', 'Contact\FellowController@createService');
 Route::put('contact/fellow', 'Contact\FellowController@updateService');
 Route::delete('contact/fellow/{id}', 'Contact\FellowController@deleteService');
 Route::get('contact/fellow/{id}', 'Contact\FellowController@retrieveService');
+Route::get('contact/fellow/{id}/details', 'Contact\FellowController@viewService');
 
 
 /**

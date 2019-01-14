@@ -18,12 +18,13 @@ class CreateContactResearchSchema extends Migration
             $table->integer('contact_id');
             $table->integer('saaftype_id')->nullable();;
             $table->year('dateStarted');
-            $table->year('dateEnded');
+            $table->year('dateEnded')->nullable();
             $table->string('title', 255);
             $table->string('fieldStudy', 255)->nullable();
             $table->string('funding', 255)->nullable();
             $table->string('remarks', 255)->nullable();
             $table->string('hostUniversity', 255)->nullable();
+            $table->integer('isSearcaTraining')->default(0)->nullable();
         });
     }
 

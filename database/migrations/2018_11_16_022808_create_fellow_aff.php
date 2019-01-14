@@ -16,9 +16,9 @@ class CreateFellowAff extends Migration
         Schema::create('fellowaff', function (Blueprint $table) {
             $table->increments('fellowaff_id');
             $table->integer('contact_id');
-            $table->integer('saaftype_id');
-            $table->year('dateFrom');
-            $table->year('dateTo');
+            $table->integer('saaftype_id')->nullable();
+            $table->date('dateFrom');
+            $table->date('dateTo')->nullable();
         });
     }
 

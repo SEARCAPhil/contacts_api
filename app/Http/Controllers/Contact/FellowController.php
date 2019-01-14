@@ -26,6 +26,10 @@ class FellowController extends Controller
         return FellowAff::where('contact_id', $id)->paginate(20);
     }
 
+    public function view ($id) {
+        return FellowAff::where('fellowaff_id', $id)->leftJoin('saafclass', 'fellowaff.saaftype_id', '=', 'saafclass.saafclass_id')->get();
+    }
+
     public function delete ($id) {
        return FellowAff::where('fellowaff_id', $id)->delete();
     }
@@ -46,5 +50,9 @@ class FellowController extends Controller
 
     public function retrieveService (Request $request, $contactId) {
         return self::retrieve($contactId);
+    }
+
+    public function viewService (Request $request) {
+        return self::view($request->id);
     }
 }
