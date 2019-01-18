@@ -28,6 +28,7 @@ Route::get('contact/{id}/info', 'Contact\PersonalInfo@infoService');
 Route::get('contact/search/{param}', 'Contact\PersonalInfo@searchService');
 Route::post('contact/photo', 'Contact\PersonalInfo@photoService');
 
+
 /**
  * Contact\Employment
  */
@@ -36,6 +37,7 @@ Route::delete('contact/employment/{id}', 'Contact\EmploymentController@deleteSer
 Route::put('contact/employment', 'Contact\EmploymentController@updateService');
 Route::get('contact/employment/{contactId}', 'Contact\EmploymentController@retrieveService');
 Route::get('contact/employment/{employId}/details', 'Contact\EmploymentController@viewService');
+
 
 /**
  * Contact\Communication
@@ -156,3 +158,28 @@ Route::post('trainees', 'TraineesController@createService');
 Route::put('trainees', 'TraineesController@updateService');
 Route::delete('trainees/{id}', 'TraineesController@deleteService');
 Route::get('trainees/{id}', 'TraineesController@retrieveService');
+
+
+/**
+ * Contact\Filter\Graduate
+ */
+Route::get('contact/filter/graduate', 'Contact\Filter\GraduateController@retrieveService');
+Route::get('contact/filter/graduate/search/{param}', 'Contact\Filter\GraduateController@searchService');
+
+/**
+ * Contact\Filter\Engage
+ */
+Route::get('contact/filter/engagement', 'Contact\Filter\EngagementController@retrieveService');
+Route::get('contact/filter/engagement/search/{param}', 'Contact\Filter\EngagementController@searchService');
+
+/**
+ * Contact\Filter\Fellow
+ */
+Route::get('contact/filter/fellowship', 'Contact\Filter\FellowshipController@retrieveService');
+Route::get('contact/filter/fellowship/search/{param}', 'Contact\Filter\FellowshipController@searchService');
+
+/**
+ * Contact\Filter\Training
+ */
+Route::get('contact/filter/training', 'Contact\Filter\TrainingController@retrieveService');
+Route::get('contact/filter/training/search/{param}', 'Contact\Filter\TrainingController@searchService');

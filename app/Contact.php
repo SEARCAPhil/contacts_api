@@ -73,4 +73,16 @@ class Contact extends Model
     public function engagements () {
         return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
     }
+
+    public function graduateAlumniResearch () {
+        return $this->hasMany(Contact\Research::class, 'contact_id')->leftJoin('saafclass', 'research.saaftype_id', '=', 'saafclass.saafclass_id')->where('isSearcaTraining', '=', 1);
+    }
+
+    public function graduateAlumniTrainings () {
+        return $this->hasMany(Contact\Training::class, 'contact_id')->leftJoin('saafclass', 'training.saaftype_id', '=', 'saafclass.saafclass_id')->where('isSearcaTraining', '=', 1);
+    }
+
+    public function engageResearch () {
+        return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
+    }
 }

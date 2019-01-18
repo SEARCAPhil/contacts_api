@@ -20,7 +20,7 @@ class CreateEmployment extends Migration
             $table->string('companyAddress', 255);
             $table->string('position', 255);
             $table->year('employedFrom');
-            $table->year('employedTo');
+            $table->year('employedTo')->nullable();
             $table->string('country', 255)->nullable();
             $table->integer('countryCode')->nullable();
             $table->integer('zip')->nullable();
