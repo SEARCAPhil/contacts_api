@@ -7,7 +7,7 @@ $factory->define(App\Contact\Research::class, function (Faker $faker) {
         'contact_id' => 1,
         'saaftype_id' => 1,
         'title' => $faker->text(100),
-        'dateStarted' => date('Y') - 1,
-        'dateEnded' => date('Y'),
+        'dateStarted' => date('Y-m-d'),
+        'dateEnded' => date('Y-m-d'),
     ];
 });

@@ -34,8 +34,8 @@ $factory->define(App\Training::class, function (Faker $faker) {
         'immediateSupervisor' => $faker->name,
         'supervisorDesignation' => $faker->jobTitle,
         'courseAttended' => $faker->text(100),
-        'dateStarted' => date('Y'),
-        'dateEnded' => date('Y'),
+        'dateStarted' => date('Y-m-d'),
+        'dateEnded' => date('Y-m-d'),
         'venue' => $faker->address,
         'sponsor' => $faker->company,
     ];
