@@ -21,7 +21,7 @@ class AssociateController extends Controller
       $res = Contact::has(['graduateAlumniResearch' => function ($query) {
           $query->where('saafclass.saafclass', '=', $filter);
       }])->with(['graduateAlumniResearch' => function ($query) {
-          $query->where('saafclass.saafclass', '=', $filter);
+          $query->where('saafclass.saafclass', '=', $filter)->where('research.contact_id', '=', 'contact.contact_id');
       }])->paginate(50);
       
         return $res;

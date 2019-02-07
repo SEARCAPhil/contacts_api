@@ -17,9 +17,9 @@ class CreateContactResearchSchema extends Migration
             $table->increments('research_id');
             $table->integer('contact_id');
             $table->integer('saaftype_id')->nullable();;
-            $table->year('dateStarted');
-            $table->year('dateEnded')->nullable();
-            $table->string('title', 255);
+            $table->date('dateStarted')->nullable();
+            $table->date('dateEnded')->nullable();
+            $table->string('title', 255)->nullable();
             $table->string('fieldStudy', 255)->nullable();
             $table->string('funding', 255)->nullable();
             $table->string('remarks', 255)->nullable();

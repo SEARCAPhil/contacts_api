@@ -19,7 +19,7 @@ class CreateContactEducationSchema extends Migration
             $table->string('institution', 255)->nullable();
             $table->string('country', 255)->nullable();
             $table->string('field', 255)->nullable();
-            $table->year('grad');
+            $table->date('grad')->nullable();
             $table->string('scholarship', 255)->nullable();
             $table->string('type', 255)->nullable();
         });

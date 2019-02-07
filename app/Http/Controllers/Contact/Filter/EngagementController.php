@@ -23,7 +23,7 @@ class EngagementController extends Controller
         ->orWhere('contact.lastname', 'like', '%'.$param.'%')
         ->orWhere('contact.firstname', 'like', '%'.$param.'%')
         ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
-        ->has('graduateAlumniResearch')->with(['graduateAlumniResearch'])->paginate(50);
+        ->has('engageResearch')->with(['engageResearch'])->paginate(50);
         return $res;
     }  
 

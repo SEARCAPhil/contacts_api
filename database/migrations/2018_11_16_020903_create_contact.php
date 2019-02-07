@@ -17,12 +17,12 @@ class CreateContact extends Migration
             $table->increments('contact_id');
             $table->string('affiliateCode', 255)->nullable();
             $table->string('prefix', 255)->nullable();
-            $table->string('lastname', 255);
-            $table->string('firstname', 255);
+            $table->string('lastname', 255)->nullable();
+            $table->string('firstname', 255)->nullable();
             $table->string('middleinit', 255)->nullable();
             $table->string('nickname', 255)->nullable();
-            $table->string('gender', 255);
-            $table->date('birthdate');
+            $table->string('gender', 255)->nullable();
+            $table->date('birthdate')->nullable();
             $table->string('spouse', 255)->nullable();
             $table->string('children', 255)->nullable();
             $table->string('hobbies', 255)->nullable();

@@ -16,11 +16,11 @@ class CreateContactTrainingSchema extends Migration
         Schema::create('training', function (Blueprint $table) {
             $table->increments('training_id');
             $table->integer('contact_id');
-            $table->string('title', 255);
+            $table->string('title', 255)->nullable();
             $table->integer('saaftype_id')->nullable();
-            $table->string('notes', 255)->nullable();
-            $table->year('dateStarted');
-            $table->year('dateEnded')->nullable();
+            $table->text('notes')->nullable();
+            $table->date('dateStarted')->nullable();
+            $table->date('dateEnded')->nullable();
             $table->string('scholarship', 255)->nullable();
             $table->string('venue', 255)->nullable();
             $table->string('sponsor', 255)->nullable();

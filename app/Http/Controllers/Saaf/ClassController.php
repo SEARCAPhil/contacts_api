@@ -21,7 +21,7 @@ class ClassController extends Controller
     }
 
     public function retrieve () {
-        return Classes::where('saafclass_parent_id', 0)->paginate(100);
+        return Classes::where('saafclass_parent_id', 0)->orWhereNull('saafclass_parent_id')->paginate(100);
     }
 
     public function viewSubs ($id) {

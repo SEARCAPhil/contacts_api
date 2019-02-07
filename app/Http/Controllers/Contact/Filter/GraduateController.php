@@ -72,7 +72,9 @@ class GraduateController extends Controller
             ->select('*')
             ->leftJoin('saafclass', function($query) {
                 $query->on('saafclass.saafclass_id', '=', 'research.saaftype_id');
-            })->where('saafclass.saafclass', '=', \Request::get('filter'))->get()
+            })->where('saafclass.saafclass', '=', \Request::get('filter'))
+            ->where('contact_id', '=', $value->contact_id)
+            ->get()
             ->toArray();
             
             $value->graduate_alumni_research = $research;

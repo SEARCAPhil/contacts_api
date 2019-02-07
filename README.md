@@ -67,7 +67,7 @@ If you are using `XAMPP` in MacOS, please go to `Docker > preferences > File Sha
 
 
 ### DOCUMENTATION  
-For API docs, please refer to the link below. This was automatically created by Postman
+For API docs, please refer to the link below. This was automatically created by Postman   
 https://documenter.getpostman.com/view/4471408/RzfcLAyQ
 
 ### TOOLS
@@ -75,3 +75,6 @@ https://documenter.getpostman.com/view/4471408/RzfcLAyQ
 * [Docker](https://www.docker.com/)
 * [VSCode](https://code.visualstudio.com/)
 * [XAMPP](https://www.apachefriends.org/index.html)
+
+### MIGRATION
+Please use [DBM Tool](https://github.com/SEARCAPhil/contacts_dbm_tools) for uploading data from OLD Database

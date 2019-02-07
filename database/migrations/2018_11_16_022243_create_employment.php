@@ -16,10 +16,10 @@ class CreateEmployment extends Migration
         Schema::create('employment', function (Blueprint $table) {
             $table->increments('employ_id');
             $table->integer('contact_id');
-            $table->string('companyName', 255);
-            $table->string('companyAddress', 255);
-            $table->string('position', 255);
-            $table->year('employedFrom');
+            $table->string('companyName', 255)->nullable();
+            $table->string('companyAddress', 255)->nullable();
+            $table->string('position', 255)->nullable();
+            $table->year('employedFrom')->nullable();
             $table->year('employedTo')->nullable();
             $table->string('country', 255)->nullable();
             $table->integer('countryCode')->nullable();
