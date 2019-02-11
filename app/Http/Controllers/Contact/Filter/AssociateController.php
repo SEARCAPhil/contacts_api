@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Contact\Filter;
 
 use App\Contact;
+use App\Saaf\Classes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class AssociateController extends Controller
       }])->with(['graduateAlumniResearch' => function ($query) {
           $query->where('saafclass.saafclass', '=', $filter)->where('research.contact_id', '=', 'contact.contact_id');
       }])->paginate(50);
-      
+    
         return $res;
     }
 

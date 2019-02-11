@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Contact\Filter;
 
 use App\Contact;
+use App\Saaf\Classes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,18 @@ class GraduateController extends Controller
     public function __construct () {
 
     }
+
+    public function get_sub_filters () {
+        return Classes::where('saafclass_parent_id', '=', 3)->paginate();
+    }
+
+    /** https://stackoverflow.com/questions/20334355/how-to-get-protected-property-of-object-in-php 8\**/
+    function accessProtected($obj, $prop) {
+        $reflection = new \ReflectionClass($obj);
+        $property = $reflection->getProperty($prop);
+        $property->setAccessible(true);
+        return $property->getValue($obj);
+      }
 
     public function paginate ($page, $data, $per_page) {
         $total = count($data);
@@ -49,6 +62,10 @@ class GraduateController extends Controller
                 ->from('research')
                 ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'research.saaftype_id')
                 ->where('saafclass.saafclass', '=', \Request::get('filter'));
+
+                foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+                    $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);     
+                }
         })->limit($per_page)->offset($page < 2 ? 0 : ($page*$per_page) - 1);
 
         # count data sets
@@ -59,6 +76,9 @@ class GraduateController extends Controller
                 ->from('research')
                 ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'research.saaftype_id')
                 ->where('saafclass.saafclass', '=', \Request::get('filter'));
+            foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+                $query->orWhere('saafclass.saafclass', '=', $val[0]['saafclass']);     
+            }
         });
 
         # read result and convert to array

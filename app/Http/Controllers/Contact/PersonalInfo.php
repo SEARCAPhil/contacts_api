@@ -13,11 +13,11 @@ class PersonalInfo extends Controller
 
     }
 
-    public function create ($affiliateCode, $prefix, $suffix, $lastname, $firstname, $middlename, $nickname, $gender, $birthdate, $spouse, $children, $hobbies, $nationality, $specialization, $civilStatus, $others, $rank, $homeAddress, $homeAreaCode, $homeZipCode ) {
-        return DB::insert('INSERT INTO contact (affiliateCode, prefix, suffix, lastname, firstname, middleinit, nickname, gender, birthdate, spouse, children, hobbies, nationality, specialization, civilStat, others, rank , homeAddress, homeAreaCode, homeZipCode) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )', [$affiliateCode, $prefix, $suffix, $lastname, $firstname, $middlename, $nickname, $gender, $birthdate, $spouse, $children, $hobbies, $nationality, $specialization, $civilStatus, $others, $rank, $homeAddress, $homeAreaCode, $homeZipCode]);
+    public function create ($affiliateCode, $prefix, $suffix, $lastname, $firstname, $middlename, $nickname, $gender, $birthdate, $spouse, $children, $hobbies, $nationality, $specialization, $civilStatus, $others, $rank, $homeAddress, $homeAreaCode, $homeZipCode, $country ) {
+        return DB::insert('INSERT INTO contact (affiliateCode, prefix, suffix, lastname, firstname, middleinit, nickname, gender, birthdate, spouse, children, hobbies, nationality, specialization, civilStat, others, rank , homeAddress, homeAreaCode, homeZipCode, homeCountry) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )', [$affiliateCode, $prefix, $suffix, $lastname, $firstname, $middlename, $nickname, $gender, $birthdate, $spouse, $children, $hobbies, $nationality, $specialization, $civilStatus, $others, $rank, $homeAddress, $homeAreaCode, $homeZipCode, $homeCountry]);
     }
 
-    public function update ($id, $affiliateCode, $prefix, $suffix, $lastname, $firstname, $middlename, $nickname, $gender, $birthdate, $spouse, $children, $hobbies, $nationality, $specialization, $civilStatus, $others, $rank, $homeAddress, $homeAreaCode, $homeZipCode) {
+    public function update ($id, $affiliateCode, $prefix, $suffix, $lastname, $firstname, $middlename, $nickname, $gender, $birthdate, $spouse, $children, $hobbies, $nationality, $specialization, $civilStatus, $others, $rank, $homeAddress, $homeAreaCode, $homeZipCode, $homeCountry) {
         return Contact::where('contact_id', $id)->update(['affiliateCode' => $affiliateCode, 
         'prefix' => $prefix, 
         'suffix' => $suffix, 
@@ -37,7 +37,8 @@ class PersonalInfo extends Controller
         'rank' => $rank,
         'homeAddress' => $homeAddress,
         'homeAreaCode' => $homeAreaCode,
-        'homeZipCode' => $homeZipCode]);
+        'homeZipCode' => $homeZipCode,
+        'homeCountry' => $homeCountry]);
     }
 
     public function update_photo ($id, $filename) {
@@ -54,7 +55,7 @@ class PersonalInfo extends Controller
     }
 
     public function view ($id) {
-        $res = Contact::findOrFail($id)->load(['communications', 'conferences', 'educationalBackgrounds', 'research', 'trainings', 'employments', 'engagements', 'fellowships']);
+        $res = Contact::select('contact.*', 'country.countryName as country')->leftJoin('country', 'contact.homeCountry', '=', 'country_id')->findOrFail($id)->load(['communications', 'conferences', 'educationalBackgrounds', 'research', 'trainings', 'employments', 'engagements', 'fellowships']);
         return $res;
     }
     
@@ -87,7 +88,7 @@ class PersonalInfo extends Controller
     /** Services */
 
     public function createService (Request $request) {
-        $inserted = self::create ($request->affiliateCode, $request->prefix, $request->suffix, $request->lastname, $request->firstname, $request->middlename, $request->nickname, $request->gender, $request->birthdate, $request->spouse, $request->children, $request->hobbies, $request->nationality, $request->specialization, $request->civilStatus, $request->others, $request->rank, $request->address, $request->areaCode, $request->zipCode);
+        $inserted = self::create ($request->affiliateCode, $request->prefix, $request->suffix, $request->lastname, $request->firstname, $request->middlename, $request->nickname, $request->gender, $request->birthdate, $request->spouse, $request->children, $request->hobbies, $request->nationality, $request->specialization, $request->civilStatus, $request->others, $request->rank, $request->address, $request->areaCode, $request->zipCode, $homeCountry);
         return $inserted ? DB::getPdo()->lastInsertId() : 0;
     }
 
@@ -96,7 +97,7 @@ class PersonalInfo extends Controller
     } 
 
     public function updateService (Request $request) {
-        return self::update($request->id, $request->affiliateCode, $request->prefix, $request->suffix, $request->lastname, $request->firstname, $request->middlename, $request->nickname, $request->gender, $request->birthdate, $request->spouse, $request->children, $request->hobbies, $request->nationality, $request->specialization, $request->civilStatus, $request->others, $request->rank, $request->address, $request->areaCode, $request->zipCode);
+        return self::update($request->id, $request->affiliateCode, $request->prefix, $request->suffix, $request->lastname, $request->firstname, $request->middlename, $request->nickname, $request->gender, $request->birthdate, $request->spouse, $request->children, $request->hobbies, $request->nationality, $request->specialization, $request->civilStatus, $request->others, $request->rank, $request->address, $request->areaCode, $request->zipCode, $request->country);
     }
 
     public function retrieveService (Request $request) {

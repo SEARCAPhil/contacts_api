@@ -186,3 +186,8 @@ Route::get('contact/filter/fellowship/search/{param}', 'Contact\Filter\Fellowshi
  */
 Route::get('contact/filter/training', 'Contact\Filter\TrainingController@retrieveService')->middleware('O365');
 Route::get('contact/filter/training/search/{param}', 'Contact\Filter\TrainingController@searchService')->middleware('O365');
+
+/**
+ * Country
+ */
+Route::get('country', 'CountryController@retrieveService')->middleware('O365');
