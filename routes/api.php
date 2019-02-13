@@ -191,3 +191,9 @@ Route::get('contact/filter/training/search/{param}', 'Contact\Filter\TrainingCon
  * Country
  */
 Route::get('country', 'CountryController@retrieveService')->middleware('O365');
+
+/**
+ * Reports
+ */
+
+Route::get('reports/directory/country', 'Reports\SaafCountryController@retrieveService');
