@@ -197,3 +197,5 @@ Route::get('country', 'CountryController@retrieveService')->middleware('O365');
  */
 
 Route::get('reports/directory/country', 'Reports\SaafCountryController@retrieveService');
+
+Route::get('affiliate/hint', 'Contact\PersonalInfo@get_affiliate_contact_hint_service');

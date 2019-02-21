@@ -85,6 +85,14 @@ class PersonalInfo extends Controller
         }
     }
 
+    public function get_affiliate_contact_hint ($id, $country, $gender='male') {
+        DB::statement(DB::raw('set @rownum=0'));
+        $res = \DB::select(DB::raw('SELECT * FROM (SELECT *, @rownum:=@rownum + 1 AS pos FROM contact d
+        WHERE d.homeCountry = ? and deleted_at IS NULL and gender = ? ORDER BY contact_id) a where contact_id = ?'), [$country, $gender, $id]);
+
+        return $res;
+    }
+
     /** Services */
 
     public function createService (Request $request) {
@@ -113,5 +121,9 @@ class PersonalInfo extends Controller
     }
     public function photoService (Request $request) {
         return self::uploadProfilePhoto($request);
+    }
+
+    public function get_affiliate_contact_hint_service (Request $request) {
+        return self::get_affiliate_contact_hint($request->id, $request->country, $request->gender);
     }
 }
