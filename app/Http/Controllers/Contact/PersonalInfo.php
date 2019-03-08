@@ -46,7 +46,7 @@ class PersonalInfo extends Controller
     }
 
     public function retrieve () {
-        $res = Contact::with(['communications'])->paginate(50);
+        $res = Contact::orderBy('firstname','asc')->with(['communications'])->paginate(50);
         return $res;
     }
 

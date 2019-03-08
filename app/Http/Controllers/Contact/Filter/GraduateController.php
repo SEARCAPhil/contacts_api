@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\DB;
 class GraduateController extends Controller
 {
     public function __construct () {
-
+        $this->parent_saaf_id = 3;
     }
 
     public function get_sub_filters () {
-        return Classes::where('saafclass_parent_id', '=', 3)->paginate();
+        return Classes::where('saafclass_parent_id', '=', $this->parent_saaf_id)->paginate();
     }
 
     /** https://stackoverflow.com/questions/20334355/how-to-get-protected-property-of-object-in-php 8\**/
@@ -26,8 +26,8 @@ class GraduateController extends Controller
         return $property->getValue($obj);
       }
 
-    public function paginate ($page, $data, $per_page) {
-        $total = count($data);
+    public function paginate ($page, $data, $per_page, $total = 0) {
+        $total = $total ? $total : count($data);
         $json = [
             'current_page' => $page,
             'data' => $data,
@@ -49,7 +49,9 @@ class GraduateController extends Controller
     public function retrieve ($filter = '') {
 
         # return all research finished at SEARCA
-      if (empty($filter) || $filter === 'undefined') return Contact::has('graduateAlumniResearch')->with(['graduateAlumniResearch'])->paginate(50);
+        #custom filters
+        if (empty($filter) || $filter === 'undefined') return Contact::has('graduateAlumniResearch')->with(['graduateAlumniResearch'])->paginate(50);
+        if($filter === 'Graduate Alumni') $this->parent_saaf_id = 1;
 
         $page = \Request::get('page', 1);
         $per_page = 50;
@@ -77,7 +79,7 @@ class GraduateController extends Controller
                 ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'research.saaftype_id')
                 ->where('saafclass.saafclass', '=', \Request::get('filter'));
             foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
-                $query->orWhere('saafclass.saafclass', '=', $val[0]['saafclass']);     
+                $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);     
             }
         });
 
@@ -85,19 +87,42 @@ class GraduateController extends Controller
         $contacts = $res->get()->toArray();
         $total = ($resCount->get()->toArray());
 
+        $ids = [\Request::get('filter')];
+        foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+            array_push($ids, $val['saafclass']); 
+        }
+
         # get all research and inject to 'graduate_alumni_research' property
         foreach($contacts as $key => $value) {
             if(!isset($value->graduate_alumni_research)) $value->graduate_alumni_research = [];
+
             $research = \DB::table('research')
             ->select('*')
             ->leftJoin('saafclass', function($query) {
                 $query->on('saafclass.saafclass_id', '=', 'research.saaftype_id');
-            })->where('saafclass.saafclass', '=', \Request::get('filter'))
+            })
+            ->whereIn('saafclass.saafclass', $ids)
             ->where('contact_id', '=', $value->contact_id)
             ->get()
             ->toArray();
             
             $value->graduate_alumni_research = $research;
+            
+            /*$research = \DB::table('research')
+            ->select('*')
+            ->leftJoin('saafclass', function($query) {
+                $query->on('saafclass.saafclass_id', '=', 'research.saaftype_id');
+            })->where('saafclass.saafclass', '=', \Request::get('filter'));
+
+            foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+                $research->orWhere('saafclass.saafclass', '=', $val['saafclass']);     
+            }
+
+            $research->where('contact_id', '=', $value->contact_id)
+            ->get()
+            ->toArray();
+            
+            $value->graduate_alumni_research = $research;*/
         }
 
         # call custom paginator

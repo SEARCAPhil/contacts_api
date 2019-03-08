@@ -71,7 +71,10 @@ class Contact extends Model
     }
 
     public function engagements () {
-        return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
+        return $this->hasMany(Contact\Engagement::class, 'contact_id')->select("engagement.*", 'research.title', 'afftype.afftypeName')->leftJoin('research', function($join) {
+            $join->on('research.research_id', '=', 'engagement.researchId');
+            
+        })->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
     }
 
     public function graduateAlumniResearch () {
@@ -83,6 +86,17 @@ class Contact extends Model
     }
 
     public function engageResearch () {
-        return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
+        return $this->hasMany(Contact\Engagement::class, 'contact_id')->select("engagement.*", 'research.title', 'afftype.afftypeName')->leftJoin('research', function($join) {
+            $join->on('research.research_id', '=', 'engagement.researchId');
+            
+        })->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
+       
+        //return $this->hasMany(Contact\Engagement::class, 'contact_id')->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id')->leftJoin('research', 'research.research_id', '=', 'engagement.researchId');
+        /*$res = \DB::table('engagement')
+        ->select("engagement.*")
+        ->leftJoin('research','research.research_id', '=', 'engagement.researchId')
+        ->leftJoin('afftype', 'engagement.type', '=', 'afftype.type_id');
+        
+        return $res;*/
     }
 }
