@@ -96,7 +96,7 @@ class PersonalInfo extends Controller
     /** Services */
 
     public function createService (Request $request) {
-        $inserted = self::create ($request->affiliateCode, $request->prefix, $request->suffix, $request->lastname, $request->firstname, $request->middlename, $request->nickname, $request->gender, $request->birthdate, $request->spouse, $request->children, $request->hobbies, $request->nationality, $request->specialization, $request->civilStatus, $request->others, $request->rank, $request->address, $request->areaCode, $request->zipCode, $homeCountry);
+        $inserted = self::create ($request->affiliateCode, $request->prefix, $request->suffix, $request->lastname, $request->firstname, $request->middlename, $request->nickname, $request->gender, $request->birthdate, $request->spouse, $request->children, $request->hobbies, $request->nationality, $request->specialization, $request->civilStatus, $request->others, $request->rank, $request->address, $request->areaCode, $request->zipCode, $request->country);
         return $inserted ? DB::getPdo()->lastInsertId() : 0;
     }
 
