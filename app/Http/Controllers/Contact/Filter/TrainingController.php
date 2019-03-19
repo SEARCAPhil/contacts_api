@@ -14,7 +14,9 @@ class TrainingController extends Controller
     }
 
     public function retrieve () {
-        $res = Contact::has('graduateAlumniTrainings')->with(['graduateAlumniTrainings'])->paginate(50);
+        $res = Contact::has('graduateAlumniTrainings')->with(['graduateAlumniTrainings'])
+        ->orderBy('firstname', 'asc')
+        ->paginate(50);
         return $res;
     }
 
@@ -23,7 +25,9 @@ class TrainingController extends Controller
         ->orWhere('contact.lastname', 'like', '%'.$param.'%')
         ->orWhere('contact.firstname', 'like', '%'.$param.'%')
         ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
-        ->has('graduateAlumniTrainings')->with(['graduateAlumniTrainings'])->paginate(50);
+        ->has('graduateAlumniTrainings')->with(['graduateAlumniTrainings'])
+        ->orderBy('firstname', 'asc')
+        ->paginate(50);
         return $res;
     }  
 

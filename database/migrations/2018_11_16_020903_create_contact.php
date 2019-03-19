@@ -40,6 +40,7 @@ class CreateContact extends Migration
             $table->integer('rank')->nullable();
             $table->string('suffix', 50)->nullable();
             $table->string('photo',255)->nullable();
+            $table->string('fullname', 255)->nullable()->comment('There are no clear separation between surname and given name from old DB, thus, it will be stored in a common field instead');
             $table->softDeletes();
         });
     }

@@ -23,7 +23,9 @@ class AssociateController extends Controller
           $query->where('saafclass.saafclass', '=', $filter);
       }])->with(['graduateAlumniResearch' => function ($query) {
           $query->where('saafclass.saafclass', '=', $filter)->where('research.contact_id', '=', 'contact.contact_id');
-      }])->paginate(50);
+      }])
+      ->orderBy('firstname', 'asc')
+      ->paginate(50);
     
         return $res;
     }

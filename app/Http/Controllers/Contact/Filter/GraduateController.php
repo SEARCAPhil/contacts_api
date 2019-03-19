@@ -15,6 +15,10 @@ class GraduateController extends Controller
     }
 
     public function get_sub_filters () {
+        \Request::merge([
+            'page' => 1
+        ]);
+
         return Classes::where('saafclass_parent_id', '=', $this->parent_saaf_id)->paginate();
     }
 
@@ -26,23 +30,24 @@ class GraduateController extends Controller
         return $property->getValue($obj);
       }
 
-    public function paginate ($page, $data, $per_page, $total = 0) {
-        $total = $total ? $total : count($data);
+    public function paginate ($page, $data, $per_page, $total = 0) { 
+        $total_current_data = count($data);
+        $total = $total ? $total : count($total_current_data );
         $json = [
             'current_page' => $page,
             'data' => $data,
             'first_page_url' => \Illuminate\Pagination\Paginator::resolveCurrentPath().'?page=1',
             'from' => null,
             'last_page' => ceil($total/$per_page),
-            'last_page_url' => \Illuminate\Pagination\Paginator::resolveCurrentPath().'?page='.ceil($total/$per_page),
+            'last_page_url' => \Illuminate\Pagination\Paginator::resolveCurrentPath().'?page='.floor($total/$per_page),
             'next_page_url' => \Illuminate\Pagination\Paginator::resolveCurrentPath().'?page='.ceil($page + 1),
             'path' => \Illuminate\Pagination\Paginator::resolveCurrentPath(),
             'per_page' => $per_page,
-            'prev_page_url' => ($page - 1) > 0 ? \Illuminate\Pagination\Paginator::resolveCurrentPath().'?page='.ceil($page - 1) : null,
-            'to' => ($per_page * ($page - 1)) + $total,
+            'prev_page_url' => ($page - 1) > 0 ? \Illuminate\Pagination\Paginator::resolveCurrentPath().'?page='.floor($page - 1) : null,
+            'to' => ($per_page * ($page - 1)) + $total_current_data,
             'total' => $total
         ];
-
+        
         echo json_encode($json);
     }
 
@@ -55,7 +60,7 @@ class GraduateController extends Controller
 
         $page = \Request::get('page', 1);
         $per_page = 50;
-
+        //var_dump(\Illuminate\Pagination\Paginator::resolveCurrentPage(1));
         # get all contact with research equivalent to filter
         $res = \DB::table('contact')
         ->select("contact.*")
@@ -66,10 +71,12 @@ class GraduateController extends Controller
                 ->where('saafclass.saafclass', '=', \Request::get('filter'));
 
                 foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
-                    $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);     
+                    $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);    
                 }
-        })->limit($per_page)->offset($page < 2 ? 0 : ($page*$per_page) - 1);
-
+        })
+       ->orderBy('firstname', 'asc')
+        ->limit($per_page)->offset($page < 1 ? 0 : $per_page * ($page - 1));
+       
         # count data sets
         $resCount = \DB::table('contact')
         ->select(\DB::raw("count(contact_id) as total"))
@@ -79,14 +86,14 @@ class GraduateController extends Controller
                 ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'research.saaftype_id')
                 ->where('saafclass.saafclass', '=', \Request::get('filter'));
             foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
-                $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);     
+                $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);    
             }
         });
 
         # read result and convert to array
         $contacts = $res->get()->toArray();
         $total = ($resCount->get()->toArray());
-
+      
         $ids = [\Request::get('filter')];
         foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
             array_push($ids, $val['saafclass']); 

@@ -14,7 +14,9 @@ class FellowshipController extends Controller
     }
 
     public function retrieve () {
-        $res = Contact::has('fellowships')->with(['fellowships'])->paginate(50);
+        $res = Contact::has('fellowships')->with(['fellowships'])
+        ->orderBy('firstname', 'asc')
+        ->paginate(50);
         return $res;
     }
 
@@ -23,7 +25,9 @@ class FellowshipController extends Controller
         ->orWhere('contact.lastname', 'like', '%'.$param.'%')
         ->orWhere('contact.firstname', 'like', '%'.$param.'%')
         ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
-        ->has('fellowships')->with(['fellowships'])->paginate(50);
+        ->has('fellowships')->with(['fellowships'])
+        ->orderBy('firstname', 'asc')
+        ->paginate(50);
         return $res;
     }  
 
