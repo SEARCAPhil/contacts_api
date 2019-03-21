@@ -17,6 +17,7 @@ class CreateContactTrainingSchema extends Migration
             $table->increments('training_id');
             $table->integer('contact_id');
             $table->string('title', 255)->nullable();
+            $table->string('trainingCode', 255)->nullable();
             $table->integer('saaftype_id')->nullable();
             $table->text('notes')->nullable();
             $table->date('dateStarted')->nullable();
