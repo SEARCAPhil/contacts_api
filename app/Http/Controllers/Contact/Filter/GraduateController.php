@@ -137,13 +137,86 @@ class GraduateController extends Controller
         return $this->paginate($page, $contacts, $per_page, @$total[0]->total);
     }
 
-    public function search ($param) {
-        $res = Contact::where('contact.firstname', 'like', '%'.$param.'%')
+    public function search ($param, $filter = '') {
+        /*$res = Contact::where('contact.firstname', 'like', '%'.$param.'%')
         ->orWhere('contact.lastname', 'like', '%'.$param.'%')
         ->orWhere('contact.firstname', 'like', '%'.$param.'%')
         ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
         ->has('graduateAlumniResearch')->with(['graduateAlumniResearch'])->paginate(50);
-        return $res;
+        return $res;*/
+
+        # return all research finished at SEARCA
+        if($filter === 'Graduate Alumni') $this->parent_saaf_id = 1;
+
+        $page = \Request::get('page', 1);
+        $per_page = 50;
+        //var_dump(\Illuminate\Pagination\Paginator::resolveCurrentPage(1));
+        # get all contact with research equivalent to filter
+        $res = \DB::table('contact')
+        ->select("contact.*")
+        ->whereIn('contact_id', function($query) {
+            $query->select('contact_id')
+                ->from('research')
+                ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'research.saaftype_id')
+                ->where('saafclass.saafclass', '=', \Request::get('filter'));
+
+                foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+                    $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);    
+                }
+        })
+        ->where('contact.lastname', 'like', '%'.$param.'%')
+        ->orWhere('contact.firstname', 'like', '%'.$param.'%')
+        ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
+       ->orderBy('firstname', 'asc')
+        ->limit($per_page)->offset($page < 1 ? 0 : $per_page * ($page - 1));
+       
+        # count data sets
+        $resCount = \DB::table('contact')
+        ->select(\DB::raw("count(contact_id) as total"))
+        ->whereIn('contact_id', function($query) {
+            $query->select('contact_id')
+                ->from('research')
+                ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'research.saaftype_id')
+                ->where('saafclass.saafclass', '=', \Request::get('filter'));
+            foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+                $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);    
+            }
+        })
+        ->where('contact.lastname', 'like', '%'.$param.'%')
+        ->orWhere('contact.firstname', 'like', '%'.$param.'%')
+        ->orWhere('contact.middleinit', 'like', '%'.$param.'%');
+
+        # read result and convert to array
+        $contacts = $res->get()->toArray();
+        $total = ($resCount->get()->toArray());
+      
+        $ids = [\Request::get('filter')];
+        foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
+            array_push($ids, $val['saafclass']); 
+        }
+
+        # get all research and inject to 'graduate_alumni_research' property
+        foreach($contacts as $key => $value) {
+            if(!isset($value->graduate_alumni_research)) $value->graduate_alumni_research = [];
+
+            $research = \DB::table('research')
+            ->select('*')
+            ->leftJoin('saafclass', function($query) {
+                $query->on('saafclass.saafclass_id', '=', 'research.saaftype_id');
+            })
+            ->whereIn('saafclass.saafclass', $ids)
+            ->where('contact_id', '=', $value->contact_id)
+            ->get()
+            ->toArray();
+            
+            $value->graduate_alumni_research = $research;
+            
+        }
+
+        # call custom paginator
+        # neccessary to mimic Eloquent's built-in pagination() function
+        return $this->paginate($page, $contacts, $per_page, @$total[0]->total);
+
     }  
 
     
@@ -152,6 +225,6 @@ class GraduateController extends Controller
     }
 
     public function searchService (Request $request) {
-        return self::search($request->param);
+        return self::search($request->param, 'Graduate Alumni');
     }
 }

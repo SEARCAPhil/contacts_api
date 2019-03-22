@@ -25,12 +25,10 @@ class CreateContactTrainingSchema extends Migration
             $table->string('scholarship', 255)->nullable();
             $table->string('venue', 255)->nullable();
             $table->string('sponsor', 255)->nullable();
-            $table->string('supervisor', 255)->nullable();
-            $table->string('supervisorDesignation', 255)->nullable();
             $table->string('trainingType', 255)->nullable();
             $table->string('organizingAgency', 255)->nullable();
             $table->string('hostUniversity', 255)->nullable();
-            $table->integer('isSearcaTraining')->default(0)->nullable();
+            #$table->integer('isSearcaTraining')->default(0)->nullable();
         });
     }
 

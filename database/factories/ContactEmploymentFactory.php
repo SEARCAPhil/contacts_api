@@ -10,5 +10,7 @@ $factory->define(App\Contact\Employment::class, function (Faker $faker) {
         'position' => $faker->jobTitle, 
         'employedFrom' => date('Y'), 
         'employedTo' => (date('Y') + 2),
+        'supervisor' => $faker->name,
+        'supervisorDesignation' => $faker->jobTitle,
     ];
 });

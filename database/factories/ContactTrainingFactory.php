@@ -12,8 +12,6 @@ $factory->define(App\Contact\Training::class, function (Faker $faker) {
         'dateEnded' => date('Y-m-d'),
         'venue' => $faker->address,
         'sponsor' => $faker->company,
-        'supervisor' => $faker->name,
-        'supervisorDesignation' => $faker->jobTitle,
         'trainingType' => $faker->randomElements(['short_courses', 'online_courses'])[0],
         'organizingAgency' => $faker->company,
         'hostUniversity' => $faker->company,
