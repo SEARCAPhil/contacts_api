@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 ini_set('max_execution_time', 120);
 ini_set('memory_limit', '2048M');
+ini_set('system_temp_dir', '/Applications/XAMPP/xamppfiles/temp/');
 
 class SaafCountryController extends Controller
 {

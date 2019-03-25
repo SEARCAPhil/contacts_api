@@ -153,7 +153,7 @@ class GraduateController extends Controller
         //var_dump(\Illuminate\Pagination\Paginator::resolveCurrentPage(1));
         # get all contact with research equivalent to filter
         $res = \DB::table('contact')
-        ->select("contact.*")
+        ->select("*")
         ->whereIn('contact_id', function($query) {
             $query->select('contact_id')
                 ->from('research')
@@ -225,6 +225,6 @@ class GraduateController extends Controller
     }
 
     public function searchService (Request $request) {
-        return self::search($request->param, 'Graduate Alumni');
+        return self::search($request->param, $request->filter);
     }
 }

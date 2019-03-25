@@ -146,6 +146,7 @@ class TrainingController extends Controller
         ->where('contact.lastname', 'like', '%'.$param.'%')
         ->orWhere('contact.firstname', 'like', '%'.$param.'%')
         ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
+        ->orWhere('contact.fullname', 'like', '%'.$param.'%')
         ->orderBy('firstname', 'asc')
         ->limit($per_page)->offset($page < 1 ? 0 : $per_page * ($page - 1));
        
@@ -158,12 +159,13 @@ class TrainingController extends Controller
                 ->leftJoin('saafclass','saafclass.saafclass_id', '=', 'training.saaftype_id')
                 ->where('saafclass.saafclass', '=', \Request::get('filter'));
             foreach(self::accessProtected(self::get_sub_filters(), 'items') as $key => $val) {
-                $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);    
+                $query->orWhere('saafclass.saafclass', '=', $val['saafclass']);      
             }
         })
         ->where('contact.lastname', 'like', '%'.$param.'%')
         ->orWhere('contact.firstname', 'like', '%'.$param.'%')
-        ->orWhere('contact.middleinit', 'like', '%'.$param.'%');
+        ->orWhere('contact.middleinit', 'like', '%'.$param.'%')
+        ->orWhere('contact.fullname', 'like', '%'.$param.'%');
 
         # read result and convert to array
         $contacts = $res->get()->toArray();
